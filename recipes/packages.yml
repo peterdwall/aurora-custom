@@ -1,0 +1,166 @@
+modules:
+  - type: containerfile
+    snippets:
+      - ARG IMAGE_VENDOR="${IMAGE_REGISTRY}"
+      - ARG FEDORA_MAJOR_VERSION="${OS_VERSION}"
+      - ARG IMAGE_FLAVOR="${IMAGE_FLAVOR:-main}"
+      - ARG BASE_IMAGE_NAME="${BASE_IMAGE_NAME:-bazzite}"
+      - ARG NVIDIA_TYPE="${NVIDIA_TYPE:-}"
+      - ARG UBLUE_IMAGE_TAG="${UBLUE_IMAGE_TAG:-latest}"
+      - COPY --from=ghcr.io/ublue-os/bluefin-cli /usr/bin/atuin /usr/bin/atuin
+      - COPY --from=ghcr.io/ublue-os/bluefin-cli /usr/share/bash-prexec /usr/share/bash-prexec
+
+# Activate RPM Fusion repos
+  - type: script
+    scripts:
+      - copr-repos.sh
+
+# Install packages from Bluefin and Bluefin DX
+  - type: rpm-ostree
+    repos:
+      - https://copr.fedorainfracloud.org/coprs/ublue-os/staging/repo/fedora-%OS_VERSION%/ublue-os-staging-fedora-%OS_VERSION%.repo
+      - https://copr.fedorainfracloud.org/coprs/che/nerd-fonts/repo/fedora-%OS_VERSION%/che-nerd-fonts-fedora-%OS_VERSION%.repo
+      - https://copr.fedorainfracloud.org/coprs/ublue-os/bling/repo/fedora-%OS_VERSION%/ublue-os-bling-fedora-%OS_VERSION%.repo
+      - https://copr.fedorainfracloud.org/coprs/ganto/lxc4/repo/fedora-%OS_VERSION%/ganto-lxc4-fedora-%OS_VERSION%.repo
+      - https://copr.fedorainfracloud.org/coprs/karmab/kcli/repo/fedora-%OS_VERSION%/karmab-kcli-fedora-%OS_VERSION%.repo
+      - https://copr.fedorainfracloud.org/coprs/atim/ubuntu-fonts/repo/fedora-%OS_VERSION%/atim-ubuntu-fonts-fedora-%OS_VERSION%.repo
+      - https://copr.fedorainfracloud.org/coprs/hikariknight/looking-glass-kvmfr/repo/fedora-%OS_VERSION%/hikariknight-looking-glass-kvmfr-fedora-%OS_VERSION%.repo
+      - https://copr.fedorainfracloud.org/coprs/ganto/umoci/repo/fedora-%OS_VERSION%/ganto-umoci-fedora-%OS_VERSION%.repo
+
+    install:
+    # Base Bluefin packages
+      - adcli
+      - bash-color-prompt
+      - bcache-tools
+      - borgbackup
+      - bootc
+      - evtest
+      - epson-inkjet-printer-escpr
+      - epson-inkjet-printer-escpr2
+      - fastfetch
+      - fish
+      - firewall-config
+      - foo2zjs
+      - freeipa-client
+      - fuse-encfs
+      - gcc
+      - git-credential-libsecret
+      - glow
+      - gum
+      - hplip
+      - krb5-workstation
+      - ifuse
+      - input-leap
+      - input-remapper
+      - jetbrains-mono-fonts-all
+      - libimobiledevice
+      - libxcrypt-compat
+      - libsss_autofs
+      - lm_sensors
+      - make
+      - mesa-libGLU
+      - nerd-fonts
+      - oddjob-mkhomedir
+      - opendyslexic-fonts
+      - playerctl
+      - printer-driver-brlaser
+      - pulseaudio-utils
+      - python3-pip
+      - rclone
+      - restic
+      - samba-dcerpc
+      - samba-ldb-ldap-modules
+      - samba-winbind-clients
+      - samba-winbind-modules
+      - samba
+      - setools-console
+      - solaar
+      - sssd-ad
+      - sssd-ipa
+      - sssd-krb5
+      - sssd-nfs-idmap
+      - stress-ng
+      - tailscale
+      - tmux
+      - usbmuxd
+      - wireguard-tools
+      - xprop
+      - wl-clipboard
+      - zsh
+
+    # DX Bluefin packages
+      - adobe-source-code-pro-fonts
+      - android-tools
+      - bcc
+      - bpftop
+      - bpftrace
+      - cascadia-code-fonts
+      - cockpit-bridge
+      - cockpit-machines
+      - cockpit-networkmanager
+      - cockpit-ostree
+      - cockpit-podman
+      - cockpit-selinux
+      - cockpit-storaged
+      - cockpit-system
+      - code
+      - containerd.io
+      - dbus-x11
+      - devpod
+      - docker-ce
+      - docker-ce-cli
+      - docker-buildx-plugin
+      - docker-compose-plugin
+      - edk2-ovmf
+      - flatpak-builder
+      - genisoimage
+      - google-droid-sans-mono-fonts
+      - google-go-mono-fonts
+      - ibm-plex-mono-fonts
+      - incus
+      - incus-agent
+      - iotop
+      # - kcli
+      - libvirt
+      - libvirt-nss
+      - lxc
+      - mozilla-fira-mono-fonts
+      - nicstat
+      - numactl
+      - p7zip-plugins
+      - p7zip
+      - podman-compose
+      - podman-tui
+      - podmansh
+      - powerline-fonts
+      - powertop
+      - qemu-char-spice
+      - qemu-device-display-virtio-gpu
+      - qemu-device-display-virtio-vga
+      - qemu-device-usb-redirect
+      - qemu-img
+      - qemu-system-x86-core
+      - qemu-user-binfmt
+      - qemu-user-static
+      - qemu
+      # - rocm-hip
+      # - rocm-opencl
+      - rocm-smi
+      - sysprof
+      - tiptop
+      - trace-cmd
+      - ubuntu-family-fonts
+      - udica
+      - umoci
+      - virt-manager
+      - virt-viewer
+      - virt-v2v
+      - ydotool
+
+    # KDE Packages
+      - kde-runtime-docs
+      - kdenetwork-filesharing
+      # - kdeplasma-addons # Already included in bazzite
+      - kdialog
+      - plasma-wallpapers-dynamic
+      - skanpage
