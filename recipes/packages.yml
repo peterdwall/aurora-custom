@@ -31,6 +31,7 @@ modules:
     install:
     # Extra packages
       - alvr
+      - corectrl
     
     # Base Bluefin packages
       - adcli
