@@ -27,12 +27,14 @@ modules:
       - https://copr.fedorainfracloud.org/coprs/hikariknight/looking-glass-kvmfr/repo/fedora-%OS_VERSION%/hikariknight-looking-glass-kvmfr-fedora-%OS_VERSION%.repo
       - https://copr.fedorainfracloud.org/coprs/ganto/umoci/repo/fedora-%OS_VERSION%/ganto-umoci-fedora-%OS_VERSION%.repo
       - https://copr.fedorainfracloud.org/coprs/grillo-delmal/alvr/repo/fedora-%OS_VERSION%/grillo-delmal-alvr-fedora-%OS_VERSION%.repo
+      - https://copr.fedorainfracloud.org/coprs/lizardbyte/beta/repo/fedora-%OS_VERSION%/lizardbyte-beta-fedora-%OS_VERSION%.repo
 
     install:
     # Extra packages
       - alvr
       - corectrl
-    
+      - sunshine
+
     # Base Bluefin packages
       - adcli
       - bash-color-prompt
