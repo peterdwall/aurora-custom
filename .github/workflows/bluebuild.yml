@@ -50,7 +50,3 @@ jobs:
           cosign_private_key: ${{ secrets.SIGNING_SECRET }}
           registry_token: ${{ github.token }}
           pr_event_number: ${{ github.event.number }}
-
-      - name: Build Container Installer
-        uses: JasonN3/build-container-installer@v1.2.3
-            
